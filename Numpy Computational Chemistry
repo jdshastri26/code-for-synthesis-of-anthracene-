@@ -1,0 +1,50 @@
+!. Moecular Dynamic simulations
+
+# Assume we have loaded a trajectory file with atomic positions over time
+# traj_data is a NumPy array of shape (time_steps, num_atoms, 3) representing x, y, z coordinates
+
+# Load example trajectory data
+# For demonstration, let's create random trajectory data
+num_atoms = 5
+time_steps = 100
+traj_data = np.random.random((time_steps, num_atoms, 3))
+
+# Calculate the mean squared displacement (MSD) for each atom
+msd = np.mean(np.square(traj_data - traj_data[0]), axis=0)
+
+print("Mean Squared Displacement of each atom:")
+print(msd)
+
+# Plot the MSD for each atom over time
+import matplotlib.pyplot as plt
+
+for atom_idx in range(num_atoms):
+    plt.plot(np.arange(time_steps), np.mean(np.square(traj_data[:, atom_idx, :] - traj_data[0, atom_idx, :]), axis=1), label=f'Atom {atom_idx}')
+
+plt.xlabel('Time step')
+plt.ylabel('Mean Squared Displacement')
+plt.title('MSD of Atoms Over Time')
+plt.legend()
+plt.show()
+
+
+
+2. Quantum Chemistry Calculations 
+
+import numpy as np
+
+# Example: Constructing and diagonalizing a Hamiltonian matrix for a simple system
+
+# Hamiltonian matrix for a 2-level system (in atomic units)
+H = np.array([[1.0, 0.2],
+              [0.2, 1.5]])
+
+# Diagonalize the Hamiltonian to find eigenvalues (energies) and eigenvectors (wavefunctions)
+energies, wavefunctions = np.linalg.eigh(H)
+
+print("Energies:")
+print(energies)
+
+print("Wavefunctions:")
+print(wavefunctions)
+
